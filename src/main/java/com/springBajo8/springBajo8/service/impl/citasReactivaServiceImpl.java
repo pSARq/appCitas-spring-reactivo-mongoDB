@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class citasReactivaServiceImpl implements IcitasReactivaService {
 
@@ -27,7 +29,6 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
         return this.IcitasReactivaRepository
                 .findById(id)
                 .flatMap(p -> this.IcitasReactivaRepository.deleteById(p.getId()).thenReturn(p));
-
     }
 
     @Override
@@ -45,7 +46,6 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
         return this.IcitasReactivaRepository.findByIdPaciente(idPaciente);
     }
 
-
     @Override
     public Flux<citasDTOReactiva> findAll() {
         return this.IcitasReactivaRepository.findAll();
@@ -55,4 +55,38 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     public Mono<citasDTOReactiva> findById(String id) {
         return this.IcitasReactivaRepository.findById(id);
     }
+
+    @Override
+    public Flux<citasDTOReactiva> findByfechaReservaCita(String fecha) {
+        return IcitasReactivaRepository.findByFechaReservaCitaIn(fecha);
+    }
+
+    @Override
+    public Mono<citasDTOReactiva> findByHoraReservaCita(String hora) {
+        return IcitasReactivaRepository.findByHoraReservaCitaIn(hora);
+    }
+
+    @Override
+    public Mono<String> findByNombreMedico(String id) {
+        Mono<citasDTOReactiva> citasDTOReactiva = IcitasReactivaRepository.findById(id);
+        return citasDTOReactiva.map(cita -> cita.getNombreMedico());
+    }
+
+    @Override
+    public Mono<citasDTOReactiva> cancelarCita(String id, citasDTOReactiva citasDTOReactiva) {
+        return this.IcitasReactivaRepository.findById(id)
+                .flatMap(citasDTOReactiva1 -> {
+                    citasDTOReactiva.setId(id);
+                    citasDTOReactiva.setEstadoReservaCita("0");
+                    return save(citasDTOReactiva);
+                })
+                .switchIfEmpty(Mono.empty());
+    }
+
+    @Override
+    public Mono<List> findByHistorial(String id) {
+        Mono<citasDTOReactiva> citasDTOReactiva = IcitasReactivaRepository.findById(id);
+        return citasDTOReactiva.map(cita -> cita.getHistorial());
+    }
+
 }

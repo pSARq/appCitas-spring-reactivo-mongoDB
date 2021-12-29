@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 public class citasReactivaResource {
 
@@ -35,7 +38,6 @@ public class citasReactivaResource {
         return this.icitasReactivaService.update(id, citasDTOReactiva)
                 .flatMap(citasDTOReactiva1 -> Mono.just(ResponseEntity.ok(citasDTOReactiva1)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
-
     }
 
     @GetMapping("/citasReactivas/{idPaciente}/byidPaciente")
@@ -48,4 +50,30 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAll();
     }
 
+    @GetMapping("/citasReactivas/{fecha}/byFechaCita")
+    private Flux<citasDTOReactiva> findByfechaReservaCita(@PathVariable("fecha") String fecha) {
+        return icitasReactivaService.findByfechaReservaCita(fecha);
+    }
+
+    @GetMapping("/citasReactivas/{hora}/byHora")
+    private Mono<citasDTOReactiva> findByHoraReservaCita(@PathVariable("hora") String hora) {
+        return icitasReactivaService.findByHoraReservaCita(hora);
+    }
+
+    @GetMapping("/citasReactivas/{id}/byNombreMedico")
+    private Mono<String> findByNombreMedico(@PathVariable("id") String id) {
+        return icitasReactivaService.findByNombreMedico(id);
+    }
+
+    @PutMapping("/citasReactivas/{id}/cancelarCita")
+    private Mono<ResponseEntity<citasDTOReactiva>> cancelarCita(@PathVariable("id") String id, @RequestBody citasDTOReactiva citasDTOReactiva) {
+        return this.icitasReactivaService.cancelarCita(id, citasDTOReactiva)
+                .flatMap(citasDTOReactiva1 -> Mono.just(ResponseEntity.ok(citasDTOReactiva1)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @GetMapping("/citasReactivas/{id}/byHistorialPaciente")
+    private Mono<List> findByHistorial(@PathVariable("id") String id) {
+        return icitasReactivaService.findByHistorial(id);
+    }
 }

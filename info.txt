@@ -1,0 +1,24 @@
+[
+  {
+    "id": "866b723d-9",
+    "idPaciente": "1",
+    "nombrePaciente": "diana",
+    "apellidosPaciente": "diaz",
+    "nombreMedico": "pablo",
+    "apellidosMedico": "perez",
+    "fechaReservaCita": "2021-12-29",
+    "horaReservaCita": "07:00 am",
+    "estadoReservaCita": "1"
+  },
+  {
+    "id": "b221761b-2",
+    "idPaciente": "2",
+    "nombrePaciente": "diana",
+    "apellidosPaciente": "diaz",
+    "nombreMedico": "pablo",
+    "apellidosMedico": "perez",
+    "fechaReservaCita": "2021-12-30",
+    "horaReservaCita": "08:00 am",
+    "estadoReservaCita": "1"
+  }
+]

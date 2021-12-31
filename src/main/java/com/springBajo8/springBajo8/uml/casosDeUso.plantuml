@@ -1,0 +1,33 @@
+@startuml
+
+left to right direction
+actor trabajadorHospital
+
+package Citas {
+  usecase "crear una cita" as UC1
+  usecase "borrar una cita" as UC2
+  usecase "modificar una cita" as UC3
+  usecase "consultar una cita por id del paciente" as UC4
+  usecase "consultar todas las citas existentes" as UC5
+  usecase "consultar una cita por su id" as UC6
+  usecase "consultar las citas por su fecha de reserva" as UC7
+  usecase "consultar las cita por su hora de reserva" as UC8
+  usecase "consultar las cita por el nombre del médico" as UC9
+  usecase "cancelar una cita" as UC10
+  usecase "consultar el historial de un paciente" as UC11
+}
+
+trabajadorHospital --> UC1
+trabajadorHospital --> UC2
+trabajadorHospital --> UC3
+trabajadorHospital --> UC4
+trabajadorHospital --> UC5
+trabajadorHospital --> UC6
+trabajadorHospital --> UC7
+trabajadorHospital --> UC8
+trabajadorHospital --> UC9
+trabajadorHospital --> UC10
+trabajadorHospital --> UC11
+
+
+@enduml

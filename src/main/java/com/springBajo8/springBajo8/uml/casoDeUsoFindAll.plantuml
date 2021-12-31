@@ -1,0 +1,27 @@
+@startuml
+participant trabadorHospital
+
+trabadorHospital -> Controller: realizar petición de obtener todas las citas registradas
+activate Controller
+
+Controller -> service: envía la petición al service
+activate service
+
+service -> reposity: envía la petición al reposity
+activate reposity
+
+reposity -> DataBase: hace la consulta a la base de datos
+activate DataBase
+
+DataBase -> reposity: devuelve el resultado de la consulta
+deactivate DataBase
+
+reposity -> service: devuelve las citas a service
+deactivate reposity
+
+service -> Controller: devuelve las citas a Controller
+deactivate service
+
+Controller -> trabadorHospital: devuelve la respuesta de la consulta exitosamente con todas las citas
+
+@enduml

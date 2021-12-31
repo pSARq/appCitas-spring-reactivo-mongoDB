@@ -1,0 +1,27 @@
+@startuml
+participant trabadorHospital
+
+trabadorHospital -> Controller: envía información del paciente a Controller
+activate Controller
+
+Controller -> service: envía la información del paciente a service
+activate service
+
+service -> reposity: envía la información del paciente a reposity
+activate reposity
+
+reposity -> DataBase: envía la información del paciente a la DataBase
+activate DataBase
+
+DataBase -> reposity: devuelve la cita almacenada a reposity
+deactivate DataBase
+
+reposity -> service: devuelve la cita almacenada a service
+deactivate reposity
+
+service -> Controller: devuelve la cita almacenada a Controller
+deactivate service
+
+Controller -> trabadorHospital: devuelve la respuesta de la cita creada exitosamente con la información
+
+@enduml

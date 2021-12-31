@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 public class citasReactivaResource {
 
+
     @Autowired
     private IcitasReactivaService icitasReactivaService;
 
@@ -30,7 +31,6 @@ public class citasReactivaResource {
         return this.icitasReactivaService.delete(id)
                 .flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
-
     }
 
     @PutMapping("/citasReactivas/{id}")
